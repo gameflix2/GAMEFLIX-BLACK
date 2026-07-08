@@ -1,801 +1,724 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Combo Gameflix - Oferta Exclusiva</title>
-    <meta name="description" content="Aproveite o Mega Combo Gameflix: uma coleção exclusiva dos melhores jogos Triple-A com desconto de mais de 90%. Acesso vitalício e ilimitado.">
-    <meta name="keywords" content="games, combo de jogos, promoção games, gameflix, jogos pc, oferta especial">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --netflix-red: #E50914;
-            --netflix-red-hover: #3ef406;
-            --netflix-black: #141414;
-            --netflix-dark: #000000;
-            --netflix-gray: #181818;
-            --netflix-text: #e5e5e5;
-            --netflix-text-muted: #808080;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gameflix Black — Acesso Vitalício à Plataforma</title>
+<meta name="description" content="Gameflix Black: pagamento único, acesso a todos os jogos, originais para sempre, 2 anos de atualizações inclusas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Chakra+Petch:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void: #08080a;
+    --void-2: #0f0f13;
+    --card: #16161c;
+    --card-line: #26262e;
+    --red: #e0102a;
+    --red-dim: #7a0a17;
+    --gold: #c9a44c;
+    --gold-bright: #e8cd85;
+    --text: #f2f1ee;
+    --text-muted: #96959e;
+    --text-faint: #5c5b64;
+    --success: #3ecf6b;
+    --shadow-red: 0 0 60px rgba(224,16,42,.25);
+    --shadow-gold: 0 0 40px rgba(201,164,76,.2);
+  }
 
-            /* === CARROSSEL: ajuste aqui === */
-            --card-width: 80px;
-            --card-height: 112px;
-            --card-gap: 6px;
-            --carousel-speed: 200s;
-        }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--void);
+    color:var(--text);
+    font-family:'Goldman', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--red); color:#fff; }
 
-        * { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+  h1,h2,h3,.display{
+    font-family:'Chakra Petch', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #000000;
-            color: var(--netflix-text);
-            overflow-x: hidden;
-        }
+  a{ text-decoration:none; color:inherit; }
+  img{ max-width:100%; display:block; }
+  button{ font-family:inherit; cursor:pointer; border:none; }
 
-        h1, h2, h3, .font-gamer {
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 1px;
-            line-height: 1.1;
-        }
+  .container{ max-width:1180px; margin:0 auto; padding:0 24px; }
 
-        html { font-size: 14px; }
-        section { padding: 4rem 1rem; }
+  /* ---------- BACKGROUND FX ---------- */
+  #bg-canvas{
+    position:fixed; inset:0; width:100%; height:100%;
+    z-index:0; pointer-events:none; opacity:.55;
+  }
+  .grain{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    opacity:.04; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
 
-        .btn-neon {
-            background: var(--netflix-red);
-            color: white;
-            font-weight: 700;
-            padding: 1rem 2rem;
-            border-radius: 4px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-        .btn-neon:hover {
-            background: var(--netflix-red-hover);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(62, 244, 6, 0.4);
-        }
+  /* ---------- TOP BAR ---------- */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 24px; backdrop-filter:blur(14px);
+    background:rgba(8,8,10,.5); border-bottom:1px solid transparent;
+    transition:border-color .3s, background .3s;
+  }
+  .topbar.scrolled{ background:rgba(8,8,10,.85); border-color:var(--card-line); }
+  .brand{ display:flex; align-items:center; gap:8px; font-family:'Chakra Petch'; font-weight:700; font-size:1.1rem; letter-spacing:.06em; }
+  .brand .black-tag{
+    color:var(--void); background:linear-gradient(120deg,var(--gold-bright),var(--gold));
+    padding:2px 8px; border-radius:4px; font-size:.72rem; letter-spacing:.08em;
+  }
+  .topbar .cta-mini{
+    background:var(--red); color:#fff; padding:9px 18px; border-radius:6px;
+    font-weight:700; font-size:.82rem; letter-spacing:.04em; text-transform:uppercase;
+    box-shadow:0 4px 20px rgba(224,16,42,.35);
+    transition:transform .15s ease;
+  }
+  .topbar .cta-mini:hover{ transform:translateY(-2px); }
 
-        .glass-card {
-            background: #181818;
-            border: 1px solid #2F2F2F;
-            border-radius: 8px;
-            padding: 2rem;
-            transition: border-color 0.3s ease;
-        }
-        .glass-card:hover { border-color: var(--netflix-red); }
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; z-index:2;
+    min-height:100svh;
+    display:flex; align-items:center;
+    padding:120px 0 60px;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;
+    width:100%;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    color:var(--gold-bright); font-size:.78rem; letter-spacing:.16em;
+    font-family:'JetBrains Mono'; margin-bottom:22px; font-weight:500;
+  }
+  .eyebrow::before{ content:''; width:7px; height:7px; border-radius:50%; background:var(--red); box-shadow:0 0 12px var(--red); animation:pulse-dot 1.6s infinite; }
+  @keyframes pulse-dot{ 0%,100%{opacity:1} 50%{opacity:.3} }
 
-        .price-tag-old {
-            text-decoration: line-through;
-            color: var(--netflix-text-muted);
-            font-size: 1.5rem;
-        }
-        .price-tag-new {
-            color: var(--netflix-red);
-            font-size: 4rem;
-            font-weight: 900;
-            font-family: 'Bebas Neue', sans-serif;
-        }
+  .hero h1{
+    font-size:clamp(2.6rem, 5.4vw, 4.4rem);
+    line-height:1.03; font-weight:700;
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(115deg, var(--gold-bright) 10%, var(--gold) 45%, #fff 55%, var(--gold) 65%, var(--gold-bright) 90%);
+    background-size:220% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shine 5s linear infinite;
+  }
+  @keyframes shine{ 0%{background-position:0% 0} 100%{background-position:220% 0} }
 
-        .fade-in { animation: fadeIn 1s ease-out forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  .hero p.lede{
+    color:var(--text-muted); font-size:1.08rem; line-height:1.65;
+    max-width:520px; margin-bottom:32px;
+  }
+  .hero p.lede strong{ color:var(--text); font-weight:600; }
 
-        .badge-limited {
-            background: var(--netflix-red);
-            padding: 4px 12px;
-            font-weight: bold;
-            border-radius: 2px;
-            display: inline-block;
-            margin-bottom: 1rem;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-bottom:26px; }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--red), #a30d1f);
+    color:#fff; padding:17px 30px; border-radius:8px;
+    font-weight:700; font-size:1rem; letter-spacing:.03em; text-transform:uppercase;
+    box-shadow:0 8px 30px rgba(224,16,42,.4);
+    display:inline-flex; align-items:center; gap:10px;
+    position:relative; overflow:hidden;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(120deg, transparent 20%, rgba(255,255,255,.25) 50%, transparent 80%);
+    transform:translateX(-120%); transition:none;
+  }
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 12px 40px rgba(224,16,42,.55); }
+  .btn-primary:hover::after{ transform:translateX(120%); transition:transform .7s ease; }
 
-        /* ===== CARROSSEL ===== */
-        #carousel-strip {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            height: calc(var(--card-height) + 10px);
-            z-index: 100;
-            overflow: hidden;
-            background: #000;
-            padding-top: 8px;
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-        }
-        .carousel-track {
-            display: flex;
-            gap: var(--card-gap);
-            width: max-content;
-            will-change: transform;
-        }
-        .carousel-track.track-ltr {
-            animation: scrollLTR var(--carousel-speed) linear infinite;
-        }
-        @keyframes scrollLTR {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .carousel-card {
-            width: var(--card-width);
-            height: var(--card-height);
-            flex-shrink: 0;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid #222;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
-            transition: transform 0.25s ease, border-color 0.25s ease;
-            cursor: pointer;
-            position: relative;
-        }
-        .carousel-card:hover {
-            transform: scale(1.08);
-            border-color: var(--netflix-red);
-            box-shadow: 0 0 18px rgba(229,9,20,0.5);
-            z-index: 10;
-        }
-        .carousel-card img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            display: block;
-            background: #111;
-        }
-        #page-offset { height: calc(var(--card-height) + 10px); }
+  .btn-ghost{
+    border:1px solid var(--card-line); color:var(--text); padding:16px 22px;
+    border-radius:8px; font-weight:600; font-size:.92rem;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:border-color .2s, background .2s;
+  }
+  .btn-ghost:hover{ border-color:var(--gold); background:rgba(201,164,76,.06); }
 
-        /* ===== VAGAS ===== */
-        .vagas-bar-wrap {
-            background: #1a1a1a;
-            border-radius: 99px;
-            height: 10px;
-            width: 100%;
-            overflow: hidden;
-            margin-top: 8px;
-        }
-        .vagas-bar-fill {
-            height: 100%;
-            background: var(--netflix-red);
-            border-radius: 99px;
-            transition: width 1s ease;
-        }
+  .trust-row{ display:flex; gap:22px; flex-wrap:wrap; color:var(--text-faint); font-size:.82rem; }
+  .trust-row span{ display:flex; align-items:center; gap:6px; }
+  .trust-row .dot{ width:5px; height:5px; border-radius:50%; background:var(--success); }
 
-        /* ===== COMO FUNCIONA ===== */
-        .step-num {
-            width: 48px; height: 48px;
-            border-radius: 50%;
-            background: var(--netflix-red);
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        .step-connector {
-            width: 2px;
-            background: #2f2f2f;
-            flex-grow: 1;
-            margin: 4px auto;
-        }
+  /* ---------- BLACK CARD (signature element) ---------- */
+  .card-stage{ perspective:1400px; display:flex; justify-content:center; }
+  .black-card{
+    width:100%; max-width:420px; aspect-ratio:1.586/1;
+    border-radius:20px; position:relative;
+    background:
+      radial-gradient(120% 140% at 15% 0%, #232329 0%, #101014 55%, #08080a 100%);
+    border:1px solid #2c2c34;
+    box-shadow:0 30px 80px rgba(0,0,0,.6), var(--shadow-gold);
+    transform-style:preserve-3d;
+    transition:transform .08s ease-out;
+    padding:28px 30px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    will-change:transform;
+  }
+  .black-card::before{
+    content:''; position:absolute; inset:0; border-radius:20px;
+    background:linear-gradient(115deg, transparent 30%, rgba(201,164,76,.14) 48%, rgba(255,255,255,.08) 52%, transparent 70%);
+    background-size:250% 250%;
+    animation:sheen 4.5s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes sheen{ 0%,100%{ background-position:0% 0%; } 50%{ background-position:100% 100%; } }
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .card-chip{
+    width:44px; height:34px; border-radius:6px;
+    background:linear-gradient(135deg, var(--gold-bright), var(--gold) 60%, #8a6d2e);
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.3);
+  }
+  .card-logo{ font-family:'Chakra Petch'; font-weight:700; font-size:1rem; letter-spacing:.05em; text-align:right; }
+  .card-logo .b{ color:var(--gold-bright); display:block; font-size:.7rem; letter-spacing:.3em; }
+  .card-number{ font-family:'JetBrains Mono'; letter-spacing:.18em; font-size:1.15rem; color:#e7e6ea; margin:14px 0; }
+  .card-bottom{ display:flex; justify-content:space-between; align-items:flex-end; }
+  .card-holder{ font-family:'JetBrains Mono'; font-size:.78rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.05em; }
+  .card-holder b{ display:block; color:var(--text); font-size:.95rem; letter-spacing:.08em; margin-top:3px; }
+  .card-tier{ font-family:'Chakra Petch'; font-size:.72rem; letter-spacing:.15em; color:var(--gold-bright); border:1px solid var(--gold); padding:4px 10px; border-radius:20px; }
+  .card-caption{ text-align:center; color:var(--text-faint); font-size:.8rem; margin-top:18px; font-family:'JetBrains Mono'; }
 
-        /* ===== DEPOIMENTOS ===== */
-        .depo-card {
-            background: #181818;
-            border: 1px solid #2f2f2f;
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: border-color 0.3s;
-        }
-        .depo-card:hover { border-color: var(--netflix-red); }
-        .stars { color: #FFD700; font-size: 0.9rem; letter-spacing: 2px; }
-        .avatar {
-            width: 48px; height: 48px;
-            border-radius: 50%;
-            background: #333;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: white;
-            flex-shrink: 0;
-        }
+  /* ---------- SECTION SHARED ---------- */
+  section{ position:relative; z-index:2; padding:110px 0; }
+  .section-head{ text-align:center; max-width:640px; margin:0 auto 56px; }
+  .section-head .eyebrow{ justify-content:center; }
+  .section-head h2{ font-size:clamp(1.9rem,3.4vw,2.7rem); font-weight:700; line-height:1.15; margin-bottom:14px; }
+  .section-head p{ color:var(--text-muted); font-size:1.02rem; line-height:1.6; }
 
-        /* ===== FAQ ===== */
-        .faq-item {
-            border-bottom: 1px solid #2f2f2f;
-        }
-        .faq-question {
-            width: 100%;
-            text-align: left;
-            background: none;
-            border: none;
-            color: var(--netflix-text);
-            font-size: 1rem;
-            font-weight: 600;
-            padding: 1.2rem 0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-        .faq-answer {
-            color: #aaa;
-            line-height: 1.7;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.35s ease, padding 0.35s ease;
-            padding-bottom: 0;
-        }
-        .faq-item.open .faq-answer {
-            max-height: 300px;
-            padding-bottom: 1.2rem;
-        }
-        .faq-icon {
-            font-size: 1.2rem;
-            transition: transform 0.3s;
-            color: var(--netflix-red);
-            flex-shrink: 0;
-        }
-        .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
 
-        /* ===== STICKY CTA BOTTOM BAR ===== */
-        #sticky-cta {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            z-index: 200;
-            background: rgba(0,0,0,0.95);
-            border-top: 1px solid #E50914;
-            padding: 0.75rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.4s ease;
-        }
-        #sticky-cta.visible { transform: translateY(0); }
+  /* ---------- BENEFITS ---------- */
+  .benefits-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .benefit-card{
+    background:var(--card); border:1px solid var(--card-line); border-radius:14px;
+    padding:30px 26px; transition:border-color .25s, transform .25s;
+  }
+  .benefit-card:hover{ border-color:var(--gold); transform:translateY(-5px); }
+  .benefit-icon{
+    width:46px; height:46px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, rgba(224,16,42,.16), rgba(201,164,76,.12));
+    border:1px solid var(--card-line); margin-bottom:18px; font-size:1.3rem;
+  }
+  .benefit-card h3{ font-size:1.05rem; margin-bottom:8px; font-weight:600; text-transform:none; letter-spacing:0; }
+  .benefit-card p{ color:var(--text-muted); font-size:.92rem; line-height:1.6; }
+  .benefit-card.highlight{
+    background:linear-gradient(160deg, rgba(201,164,76,.08), rgba(22,22,28,1));
+    border-color:var(--gold);
+  }
 
-        /* ===== GARANTIA BADGE ===== */
-        .garantia-badge {
-            border: 2px solid #E50914;
-            border-radius: 50%;
-            width: 130px; height: 130px;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            text-align: center;
-            padding: 1rem;
-            flex-shrink: 0;
-        }
-    </style>
+  /* ---------- COMPARISON ---------- */
+  .compare-wrap{
+    background:var(--card); border:1px solid var(--card-line); border-radius:18px; overflow:hidden;
+  }
+  table.compare{ width:100%; border-collapse:collapse; }
+  table.compare th, table.compare td{ padding:18px 22px; text-align:center; font-size:.92rem; border-bottom:1px solid var(--card-line); }
+  table.compare th{ font-family:'Chakra Petch'; text-transform:uppercase; letter-spacing:.04em; font-size:.85rem; color:var(--text-muted); font-weight:600; }
+  table.compare td:first-child, table.compare th:first-child{ text-align:left; color:var(--text); font-weight:500; }
+  table.compare th.black-col{ color:var(--gold-bright); background:rgba(201,164,76,.06); }
+  table.compare td.black-col{ background:rgba(201,164,76,.04); font-weight:600; }
+  table.compare tr:last-child td{ border-bottom:none; }
+  .icon-yes{ color:var(--success); font-weight:700; }
+  .icon-no{ color:var(--text-faint); }
+
+  /* ---------- PRICING ---------- */
+  .pricing-box{
+    max-width:560px; margin:0 auto; text-align:center;
+    background:radial-gradient(120% 160% at 50% 0%, rgba(201,164,76,.08), transparent 60%), var(--card);
+    border:1px solid var(--gold); border-radius:22px; padding:52px 40px;
+    box-shadow:var(--shadow-gold);
+    position:relative;
+  }
+  .pricing-box .badge{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+    background:var(--gold); color:var(--void); font-weight:700; font-size:.74rem;
+    padding:6px 16px; border-radius:20px; letter-spacing:.06em; text-transform:uppercase;
+  }
+  .price-old{ color:var(--text-faint); text-decoration:line-through; font-size:1.1rem; margin-bottom:4px; }
+  .price-new{ font-family:'Chakra Petch'; font-weight:700; font-size:clamp(3rem,7vw,4.2rem); line-height:1; margin:6px 0; }
+  .price-new small{ font-size:1.3rem; vertical-align:top; color:var(--gold-bright); }
+  .price-sub{ color:var(--text-muted); font-size:.92rem; margin-bottom:30px; }
+  .price-list{ text-align:left; margin:0 auto 32px; max-width:340px; }
+  .price-list li{ list-style:none; display:flex; gap:10px; align-items:flex-start; margin-bottom:12px; font-size:.94rem; color:var(--text); }
+  .price-list li::before{ content:'✓'; color:var(--success); font-weight:700; }
+  .countdown{
+    display:flex; gap:10px; justify-content:center; margin-bottom:26px;
+  }
+  .countdown div{
+    background:var(--void-2); border:1px solid var(--card-line); border-radius:8px;
+    padding:10px 14px; min-width:60px;
+  }
+  .countdown .num{ font-family:'JetBrains Mono'; font-size:1.4rem; font-weight:700; }
+  .countdown .lbl{ font-size:.65rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:.06em; }
+  .btn-primary.big{ width:100%; justify-content:center; padding:20px; font-size:1.05rem; }
+  .guarantee-line{ margin-top:18px; color:var(--text-faint); font-size:.82rem; }
+
+  /* ---------- SOCIAL PROOF ---------- */
+  .testi-track-wrap{ overflow:hidden; mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent); }
+  .testi-track{ display:flex; gap:20px; width:max-content; animation:scroll-left 38s linear infinite; }
+  .testi-track:hover{ animation-play-state:paused; }
+  @keyframes scroll-left{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .testi-card{
+    width:320px; flex-shrink:0; background:var(--card); border:1px solid var(--card-line);
+    border-radius:14px; padding:24px;
+  }
+  .testi-stars{ color:var(--gold-bright); font-size:.85rem; margin-bottom:10px; letter-spacing:2px; }
+  .testi-card p{ color:var(--text-muted); font-size:.9rem; line-height:1.6; margin-bottom:16px; }
+  .testi-who{ display:flex; align-items:center; gap:10px; }
+  .testi-avatar{ width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg,var(--red),var(--gold)); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.85rem; }
+  .testi-who span{ font-size:.82rem; color:var(--text-faint); display:block; }
+  .testi-who strong{ font-size:.9rem; }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{ border-bottom:1px solid var(--card-line); }
+  .faq-q{
+    width:100%; background:none; color:var(--text); text-align:left;
+    padding:22px 4px; display:flex; justify-content:space-between; align-items:center;
+    font-weight:600; font-size:1rem;
+  }
+  .faq-q .plus{ font-family:'JetBrains Mono'; color:var(--gold-bright); transition:transform .3s ease; font-size:1.2rem; }
+  .faq-item.open .faq-q .plus{ transform:rotate(45deg); }
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  .faq-a p{ padding:0 4px 22px; color:var(--text-muted); font-size:.92rem; line-height:1.65; max-width:640px; }
+
+  /* ---------- FOOTER CTA ---------- */
+  .final-cta{ text-align:center; }
+  .final-cta h2{ font-size:clamp(2rem,4.4vw,3.2rem); margin-bottom:16px; }
+  .final-cta p{ color:var(--text-muted); margin-bottom:34px; }
+
+  footer{ border-top:1px solid var(--card-line); padding:36px 24px; text-align:center; color:var(--text-faint); font-size:.82rem; position:relative; z-index:2; }
+
+  /* ---------- STICKY BAR ---------- */
+  .sticky-bar{
+    position:fixed; bottom:-100px; left:0; right:0; z-index:60;
+    background:rgba(12,12,15,.92); backdrop-filter:blur(16px);
+    border-top:1px solid var(--card-line);
+    padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    transition:bottom .35s ease;
+  }
+  .sticky-bar.show{ bottom:0; }
+  .sticky-bar .info{ font-size:.85rem; color:var(--text-muted); }
+  .sticky-bar .info strong{ color:var(--text); font-family:'Chakra Petch'; }
+  .sticky-bar .btn-primary{ padding:12px 22px; font-size:.85rem; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 940px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .card-stage{ order:-1; margin-bottom:10px; }
+    .benefits-grid{ grid-template-columns:repeat(2,1fr); }
+    table.compare th, table.compare td{ padding:14px 10px; font-size:.82rem; }
+  }
+  @media (max-width: 600px){
+    .benefits-grid{ grid-template-columns:1fr; }
+    .hero{ padding-top:100px; }
+    .trust-row{ flex-direction:column; gap:8px; }
+    .sticky-bar .info{ display:none; }
+    .black-card{ max-width:340px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
 </head>
 <body>
 
-    <!-- CARROSSEL FIXO -->
-    <div id="carousel-strip">
-        <div class="carousel-track track-ltr" id="carouselTrack"></div>
-    </div>
-    <div id="page-offset"></div>
+<canvas id="bg-canvas"></canvas>
+<div class="grain"></div>
 
-    <!-- NAV -->
-    <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center bg-gradient-to-b from-black to-transparent"
-         style="top: calc(var(--card-height) + 10px);">
-        
-        
-    </nav>
+<!-- TOP BAR -->
+<header class="topbar" id="topbar">
+  <div class="brand">GAMEFLIX <span class="black-tag">BLACK</span></div>
+  <a href="#pricing" class="cta-mini">Quero ser Black</a>
+</header>
 
-    <!-- ===== HERO ===== -->
-    <main class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-black/70 z-10"></div>
-            <img src="https://w0.peakpx.com/wallpaper/378/108/HD-wallpaper-black-plain.jpg" alt="Background" class="w-full h-full object-cover">
-        </div>
-
-        <div class="container mx-auto px-4 z-20 text-center fade-in">
-            <span class="badge-limited">⚡ OFERTA POR TEMPO LIMITADO</span>
-            <h1 class="text-5xl md:text-8xl mb-4 uppercase">GAMEFLIX BLACK </h1>
-            <p class="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-4 font-light">
-                 Acesso vitalício a <strong class="text-white"> TODOS JOGOS </strong> — download direto, sem mensalidade.
-            </p>
-
-            <!-- VAGAS LIMITADAS -->
-            <div class="max-w-sm mx-auto mb-8 bg-black/60 border border-red-800 rounded-lg px-4 py-3">
-                <p class="text-sm text-gray-300 mb-1">
-                    <i class="fas fa-fire text-red-500 mr-1"></i>
-                    Restam apenas <strong id="vagas-num" class="text-white text-base">47</strong> vagas nesta oferta
-                </p>
-                <div class="vagas-bar-wrap">
-                    <div class="vagas-bar-fill" id="vagas-bar" style="width: 87%"></div>
-                </div>
-                <p class="text-xs text-gray-500 mt-1">87% das vagas já foram preenchidas</p>
-            </div>
-
-            <div class="flex flex-col items-center justify-center mb-10">
-                <span class="price-tag-old">De R$ 2.490,00</span>
-                <div class="flex items-baseline gap-2">
-                    <span class="text-2xl font-bold">Por apenas</span>
-                    <span class="price-tag-new">R$ 499,00</span>
-                </div>
-                <p class="text-gray-400 mt-2 italic">Pagamento único. Acesso para sempre. Sem mensalidade.</p>
-            </div>
-
-            <a href="#comprar" id="cta-hero" class="btn-neon text-2xl w-full md:w-auto px-12">
-                ⚡ VIRAR BLACK AGORA ⚡ <i class="fas fa-rocket ml-3"></i>
-            </a>
-            <p class="text-xs text-gray-500 mt-3">
-                <i class="fas fa-shield-alt mr-1"></i> Compra 100% segura · Link de download enviado no ato
-            </p>
-        </div>
-    </main>
-
-    <!-- ===== COMO FUNCIONA ===== -->
-    <section class="bg-black">
-        <div class="container mx-auto px-4 max-w-2xl">
-            <h2 class="text-4xl text-center mb-4 underline decoration-red-600 underline-offset-8">COMO FUNCIONA?</h2>
-            <p class="text-center text-gray-400 mb-14">É simples, rápido e você já começa a jogar hoje.</p>
-
-            <div class="flex flex-col gap-0">
-
-                <!-- Step 1 -->
-                <div class="flex gap-5 items-start">
-                    <div class="flex flex-col items-center">
-                        <div class="step-num">1</div>
-                        <div class="step-connector h-16"></div>
-                    </div>
-                    <div class="pt-2 pb-8">
-                        <h3 class="text-2xl mb-1">Você finaliza a compra</h3>
-                        <p class="text-gray-400">Pague com PIX, cartão de crédito ou débito. O ambiente é 100% criptografado e seguro.</p>
-                    </div>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="flex gap-5 items-start">
-                    <div class="flex flex-col items-center">
-                        <div class="step-num">2</div>
-                        <div class="step-connector h-16"></div>
-                    </div>
-                    <div class="pt-2 pb-8">
-                        <h3 class="text-2xl mb-1">Recebe o link na hora</h3>
-                        <p class="text-gray-400">Assim que o pagamento é confirmado, você recebe o link de download direto no e-mail — normalmente em menos de 2 minutos.</p>
-                    </div>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="flex gap-5 items-start">
-                    <div class="flex flex-col items-center">
-                        <div class="step-num">3</div>
-                        <div class="step-connector h-16"></div>
-                    </div>
-                    <div class="pt-2 pb-8">
-                        <h3 class="text-2xl mb-1">Baixa os jogos que quiser</h3>
-                        <p class="text-gray-400">Acesse o arquivo e escolha quais títulos quer instalar no seu PC. Sem limites de download, sem prazo de validade.</p>
-                    </div>
-                </div>
-
-                <!-- Step 4 -->
-                <div class="flex gap-5 items-start">
-                    <div class="flex flex-col items-center">
-                        <div class="step-num">4</div>
-                    </div>
-                    <div class="pt-2">
-                        <h3 class="text-2xl mb-1">Joga para sempre</h3>
-                        <p class="text-gray-400">O acesso é vitalício. Sem mensalidade, sem renovação. Uma vez seu, é seu para sempre.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== BENEFÍCIOS ===== -->
-    <section class="bg-black border-t border-gray-900">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl text-center mb-16 underline decoration-red-600 underline-offset-8">POR QUE GARANTIR ESTE COMBO?</h2>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="glass-card text-center">
-                    <div class="text-red-600 text-5xl mb-6"><i class="fas fa-download"></i></div>
-                    <h3 class="text-2xl mb-4">DOWNLOAD DIRETO</h3>
-                    <p class="text-gray-400">Sem conta, sem login, sem assinatura. Você baixa os arquivos e instala no seu PC. Simples assim.</p>
-                </div>
-                <div class="glass-card text-center border-red-600">
-                    <div class="text-red-600 text-5xl mb-6"><i class="fas fa-piggy-bank"></i></div>
-                    <h3 class="text-2xl mb-4">ECONOMIA REAL</h3>
-                    <p class="text-gray-400">Mais de R$ 2.000,00 em jogos AAA por apenas R$ 499 — pagamento único, sem mais cobranças.</p>
-                </div>
-                <div class="glass-card text-center">
-                    <div class="text-red-600 text-5xl mb-6"><i class="fas fa-infinity"></i></div>
-                    <h3 class="text-2xl mb-4">ACESSO ETERNO</h3>
-                    <p class="text-gray-400">Jogue quando e quantas vezes quiser. Sem prazo de validade, sem limite de instalações.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== DEPOIMENTOS ===== -->
-    <section class="bg-black border-t border-gray-900">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl text-center mb-4 underline decoration-red-600 underline-offset-8">O QUE ESTÃO FALANDO</h2>
-            <p class="text-center text-gray-500 mb-14">Mais de 3.200 clientes satisfeitos nos últimos 6 meses</p>
-
-            <div class="grid md:grid-cols-3 gap-6">
-
-                <div class="depo-card">
-                    <div class="stars mb-3">★★★★★</div>
-                    <p class="text-gray-300 mb-4 italic">"Achei que era golpe, mas resolvi arriscar. Link chegou em 1 minuto, baixei o RDR2 e o God of War na mesma tarde. Absurdo o custo-benefício."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="avatar" style="background:#c0392b;">R</div>
-                        <div>
-                            <p class="font-semibold text-white">Rafael M.</p>
-                            <p class="text-xs text-gray-500">São Paulo, SP · comprou há 2 semanas</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="depo-card" style="border-color:#E50914;">
-                    <div class="stars mb-3">★★★★★</div>
-                    <p class="text-gray-300 mb-4 italic">"Fiz o PIX às 23h, link tava na caixa de entrada antes de eu fechar o aplicativo. Instalei o Witcher 3 e o Cyberpunk. Jogo os dois até hoje sem problema nenhum."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="avatar" style="background:#27ae60;">L</div>
-                        <div>
-                            <p class="font-semibold text-white">Lucas T.</p>
-                            <p class="text-xs text-gray-500">Curitiba, PR · comprou há 1 mês</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="depo-card">
-                    <div class="stars mb-3">★★★★★</div>
-                    <p class="text-gray-300 mb-4 italic">"Passei anos pagando assinatura de serviços que bloqueavam os jogos quando não renovava. Aqui é uma vez só e fica para sempre. Melhor decisão que tomei."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="avatar" style="background:#2980b9;">F</div>
-                        <div>
-                            <p class="font-semibold text-white">Fernanda L.</p>
-                            <p class="text-xs text-gray-500">Belo Horizonte, MG · comprou há 3 semanas</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="depo-card">
-                    <div class="stars mb-3">★★★★★</div>
-                    <p class="text-gray-300 mb-4 italic">"Já indiquei para 4 amigos. Todos compraram e todos ficaram satisfeitos. O suporte responde rápido também, tirou minhas dúvidas antes de comprar."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="avatar" style="background:#8e44ad;">G</div>
-                        <div>
-                            <p class="font-semibold text-white">Gabriel S.</p>
-                            <p class="text-xs text-gray-500">Porto Alegre, RS · comprou há 2 meses</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="depo-card">
-                    <div class="stars mb-3">★★★★★</div>
-                    <p class="text-gray-300 mb-4 italic">"Fiquei na dúvida por causa do preço baixo, mas o suporte me explicou tudo antes. Comprei, baixei o Elden Ring e o Resident Evil 4. Funcionando perfeitamente."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="avatar" style="background:#e67e22;">M</div>
-                        <div>
-                            <p class="font-semibold text-white">Marcos A.</p>
-                            <p class="text-xs text-gray-500">Fortaleza, CE · comprou há 5 dias</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="depo-card">
-                    <div class="stars mb-3">★★★★★</div>
-                    <p class="text-gray-300 mb-4 italic">"Meu filho de 14 anos queria esses jogos faz tempo. Comprei o combo e economizei mais de R$1.500 comparado a comprar separado. Entrega foi imediata."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="avatar" style="background:#16a085;">A</div>
-                        <div>
-                            <p class="font-semibold text-white">Ana P.</p>
-                            <p class="text-xs text-gray-500">Recife, PE · comprou há 1 semana</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== FAQ (QUEBRA DE OBJEÇÕES) ===== -->
-    <section class="bg-black border-t border-gray-900">
-        <div class="container mx-auto px-4 max-w-2xl">
-            <h2 class="text-4xl text-center mb-4 underline decoration-red-600 underline-offset-8">DÚVIDAS FREQUENTES</h2>
-            <p class="text-center text-gray-500 mb-12">Respondemos tudo antes de você comprar.</p>
-
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFaq(this)">
-                    Como recebo os jogos depois de comprar?
-                    <i class="fas fa-plus faq-icon"></i>
-                </button>
-                <div class="faq-answer">
-                    Assim que o pagamento é confirmado — seja PIX, cartão ou débito — você recebe um e-mail com o link de download. O processo é automático e geralmente leva menos de 2 minutos.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFaq(this)">
-                    Funciona no meu PC? Qual configuração precisa?
-                    <i class="fas fa-plus faq-icon"></i>
-                </button>
-                <div class="faq-answer">
-                    Os jogos são compatíveis com Windows 10 e Windows 11 (64 bits). A configuração mínima varia por título — todos os requisitos estão descritos no arquivo que você recebe junto com o link. Se travar em algum jogo específico, nossa equipe de suporte te ajuda a configurar.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFaq(this)">
-                    Tem vírus? Os arquivos são seguros?
-                    <i class="fas fa-plus faq-icon"></i>
-                </button>
-                <div class="faq-answer">
-                    Todos os arquivos são verificados e escaneados antes de serem disponibilizados. Mais de 3.200 clientes já baixaram sem nenhum problema relatado. Se tiver qualquer dúvida após o download, entre em contato com o suporte — resolvemos na hora.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFaq(this)">
-                    Vou perder o acesso depois de um tempo?
-                    <i class="fas fa-plus faq-icon"></i>
-                </button>
-                <div class="faq-answer">
-                    Não. O acesso é vitalício. Você baixa os arquivos para o seu PC e eles ficam lá para sempre — independente de qualquer assinatura, renovação ou conta ativa. Não há mensalidade nem prazo de validade.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFaq(this)">
-                    Precisa de internet para jogar?
-                    <i class="fas fa-plus faq-icon"></i>
-                </button>
-                <div class="faq-answer">
-                    A maioria dos títulos do combo funciona 100% offline após a instalação. Alguns jogos com modo multiplayer online podem exigir conexão para esse modo específico, mas todos funcionam offline para o modo campanha/história.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question" onclick="toggleFaq(this)">
-                    E se eu tiver algum problema depois da compra?
-                    <i class="fas fa-plus faq-icon"></i>
-                </button>
-                <div class="faq-answer">
-                    Nosso suporte está disponível via WhatsApp e e-mail. Respondemos em até 24h úteis e resolvemos qualquer problema com instalação, download ou dúvidas técnicas. Não te deixamos na mão.
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ===== CTA FINAL + GARANTIA ===== -->
-    <section id="comprar" class="bg-gradient-to-t from-red-900/20 to-black py-24 border-t border-gray-900">
-        <div class="container mx-auto px-4 text-center">
-
-            <!-- VAGAS RESTANTES -->
-            <div class="max-w-md mx-auto mb-10 bg-black/60 border border-red-800 rounded-lg px-5 py-4">
-                <p class="text-base text-gray-200 mb-2">
-                    <i class="fas fa-fire text-red-500 mr-1"></i>
-                    <strong id="vagas-num-2" class="text-white">47</strong> vagas restantes nesta faixa de preço
-                </p>
-                <div class="vagas-bar-wrap">
-                    <div class="vagas-bar-fill" style="width: 87%"></div>
-                </div>
-                <p class="text-xs text-gray-500 mt-1">Quando as vagas acabarem, o preço sobe para R$ 799</p>
-            </div>
-
-            <h2 class="text-4xl md:text-6xl mb-6">NÃO PERCA ESTA OPORTUNIDADE</h2>
-            <p class="text-xl text-gray-300 mb-4 max-w-xl mx-auto">
-                + de 100 jogos. Download direto. Acesso eterno.
-            </p>
-
-            <div class="flex flex-col items-center mb-10">
-                <span class="price-tag-old">De R$ 2.490,00</span>
-                <div class="flex items-baseline gap-2">
-                    <span class="text-2xl font-bold">Por apenas</span>
-                    <span class="price-tag-new">R$ 499,00</span>
-                </div>
-                <p class="text-gray-400 mt-1 italic">Pagamento único · Link imediato · Sem mensalidade</p>
-            </div>
-
-            <!-- GARANTIA + CTA -->
-            <div class="flex flex-col md:flex-row items-center justify-center gap-8 mb-8">
-                <div class="garantia-badge">
-                    <i class="fas fa-shield-alt text-red-600 text-2xl mb-1"></i>
-                    <p class="font-bold text-sm text-white leading-tight">GARANTIA</p>
-                    <p class="text-xs text-gray-400 leading-tight">7 dias ou<br>seu dinheiro<br>de volta</p>
-                </div>
-                <div class="flex flex-col gap-3 items-center">
-                    <a href="#" class="btn-neon px-12 text-xl">
-                        GARANTIR DESCONTO <i class="fas fa-shopping-cart ml-3"></i>
-                    </a>
-                    <p class="text-xs text-gray-500">
-                        <i class="fas fa-lock mr-1"></i> Pagamento seguro · PIX com desconto extra · Cartão em até 12x
-                    </p>
-                </div>
-            </div>
-
-            <div class="mt-6 flex justify-center gap-6 text-2xl text-gray-500">
-                <i class="fab fa-cc-visa"></i>
-                <i class="fab fa-cc-mastercard"></i>
-                <i class="fas fa-pix"></i>
-                <i class="fas fa-lock"></i>
-            </div>
-            <p class="mt-3 text-sm text-gray-500">Ambiente 100% seguro e criptografado</p>
-        </div>
-    </section>
-
-    <footer class="py-10 border-t border-gray-900 text-center text-gray-600">
-        <p>&copy; 2026 Gameflix. Todos os direitos reservados.</p>
-    </footer>
-
-    <!-- STICKY BOTTOM BAR -->
-    <div id="sticky-cta">
-        <div class="hidden md:block">
-            <p class="font-bold text-white text-sm">MEGA COMBO GAMEFLIX</p>
-            <p class="text-xs text-gray-400">+ de 100 jogos · Download direto · Acesso eterno</p>
-        </div>
-        <div class="flex items-center gap-4">
-            <div class="text-right hidden sm:block">
-                <p class="text-xs text-gray-500 line-through">R$ 2.490</p>
-                <p class="text-red-500 font-bold text-lg font-gamer">R$ 499,00</p>
-            </div>
-            <a href="#comprar" class="btn-neon px-6 py-3 text-sm whitespace-nowrap">
-                GARANTIR AGORA <i class="fas fa-arrow-right ml-2"></i>
-            </a>
-        </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">ACESSO EXCLUSIVO · VAGAS LIMITADAS</div>
+      <h1>Pare de alugar jogos.<br>Comece a <span class="accent">ser dono</span> deles.</h1>
+      <p class="lede">
+        O <strong>Gameflix Black</strong> destrava a plataforma inteira num pagamento único.
+        Todos os jogos, originais, seus para sempre — com <strong>2 anos de atualizações</strong> inclusas, sem mensalidade nenhuma.
+      </p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn-primary">⚡ Destravar acesso Black</a>
+        <a href="#comparativo" class="btn-ghost">Ver o que muda →</a>
+      </div>
+      <div class="trust-row">
+        <span><i class="dot"></i>Pagamento único de R$299</span>
+        <span><i class="dot"></i>Jogos originais, sem pirataria</span>
+        <span><i class="dot"></i>Sem renovação, sem surpresas</span>
+      </div>
     </div>
 
-    <!-- SCRIPTS -->
-    <script>
-        // ===== CARROSSEL =====
-        const images = [
-            "https://cdn1.epicgames.com/offer/a14a02aa3c8143729605eaf7c93d7501/EGS_Battlefield6_BattlefieldStudios_S2_1200x1600-a88625a836120c55650c83d17a010c25",
-            "https://cdn.loaded.com/496x700/media/catalog/product/r/e/resident_evil_requiem_cdkeys_1.png",
-            "https://www.notebookcheck.info/fileadmin/Notebooks/News/_nc5/image_2025-09-24_193459770.png",
-            "https://upload.wikimedia.org/wikipedia/pt/e/e7/Red_Dead_Redemption_2.png",
-            "https://gmedia.playstation.com/is/image/SIEPDC/god-of-war-ragnarok-store-art-01-10sep21$ru?$800px--t$",
-            "https://www.productsleutels.nl/wp-content/uploads/2021/01/Cyberpunk-2077-PC-COVER.jpg",
-            "https://m.media-amazon.com/images/M/MV5BODIwYWZmYWMtYTliNC00YWQ5LTg5ZmEtNTZhNmUxNjdiMzNiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-            "https://res.cloudinary.com/dnponjtdn/image/upload/v1777349189/Captura_de_tela_2026-02-23_185713_p4mvr5.png",
-            "https://upload.wikimedia.org/wikipedia/commons/f/fb/Pragmata_cover.jpg",
-            "https://cdn1.epicgames.com/offer/b2818b59c0bb420e9647983dfd254931/EGS_MarvelsSpiderManDigitalDeluxeEdition_InsomniacGamesNixxesSoftware_Editions_S2_1200x1600-148e0014e79aa7c2cb23ae2414b11a16",
-            "https://cdn1.epicgames.com/offer/0c40923dd1174a768f732a3b013dcff2/EGS_TheLastofUsPartIDigitalDeluxeEdition_NaughtyDogLLC_Editions_S2_1200x1600-6db4887c7913c5a43ae3a086de2ad29c",
-            "https://assets-prd.ignimgs.com/2022/05/27/9781506732022-1653620982308.jpg",
-            "https://cdn1.epicgames.com/offer/6e6aa039c73347b885803de65ac5d3db/EGS_GhostofTsushima_SuckerPunchProductions_S2_1200x1600-e23e02c1d70be7b528dba50860f87d39",
-            "https://meups.com.br/wp-content/uploads/2025/10/Battlefield-6-REVIEW-PS5-scaled.jpg",
-            "https://bdjogos.com.br/capas/6265-the-witcher-3-wild-hunt-capa-1.jpg",
-            "https://image.api.playstation.com/vulcan/ap/rnd/202306/1301/0a5face6e59f61c2ed7f9423c778b10f2e4b8cada54d164f.png",
-            "https://bdjogos.com.br/capas/24175-call-of-duty-black-ops-6-capa-1.webp",
-            "https://upload.wikimedia.org/wikipedia/pt/3/30/Resident_Evil_4_%28remake%29.png",
-            "https://res.cloudinary.com/dnponjtdn/image/upload/v1777349196/days-gone-remastered-2025--30418_bydcux.jpg",
-            "https://hobbygames.ru/image/enaza/19184698/box2.jpg.jpg",
-            "https://e.snmc.io/lk/f/x/2f5dbf23974d6391c11c7b5b2fce6bb0/9667231",
-            "https://upload.wikimedia.org/wikipedia/pt/e/e9/Assassins_Creed_Valhalla_capa.png",
-            "https://assets.nintendo.com/image/upload/q_auto/f_auto/store/software/switch/70010000089518/cc83ebef3be669c8fcc66f9c53e3c6e6dabf5cbc44947c9e1c7e5febeb254ee6",
-            "https://m.media-amazon.com/images/I/71kj4+Y5bHL._AC_UF1000,1000_QL80_.jpg",
-            "https://image.api.playstation.com/vulcan/ap/rnd/202208/1118/eqqPM2rRA1KnVNQuNkh4BhFn.png",
-            "https://cdn1.epicgames.com/offer/8b2d6cf2b45b41f1abe91bc5b7c1e8f9/EGS_UNCHARTEDLegacyofThievesCollection_NaughtyDogLLC_S2_1200x1600-9deaa177d8716bde5478cdd75d850c9c",
-            "https://images6.alphacoders.com/139/thumb-1920-1397239.jpg",
-            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjG5gD2EPSegoWpyI0LAvVz1rzUV-MKZRmdDJXWuuCZLweBOAyrkpYNlxQ7FGomhRI6-IUA-IpPTxQh2iaYQNJceG03XR8puhMXRIfAluevOg9swrtBDItBQ_E1wPHcrxPz2Eovkktf03LupJPzy9_T6xJtIt79Xhz7LisCBS5aWtlbwiWYmurF1ckSJF2i/s16000/portalfps-call-of-duty-modern-warfare-iii-wallpaper.jpg",
-            "https://m.media-amazon.com/images/I/81mUtFXhFCL.jpg",
-            "https://bdjogos.com.br/capas/7290-call-of-duty-black-ops-iii-capa-1.jpg",
-            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjShfiHr6QsUdVkqkBfeIaVf0uWzcs6cX4zYwFJMNrs8KwxLb63dP0d_w3VoF8jd0cASElB8Xkqun8zpGNyDzE4gE3M-Dcg0_c3HD070hlwAvMhmx9WHGoAs47c-C0l4PAyQlZ1m9tUeid-/s1600/CALL-OF-DUTY-WWII-1080P-Wallpaper-1.jpg",
-            "https://cdn.europosters.eu/image/1300/15042.jpg",
-            "https://store-images.s-microsoft.com/image/apps.703.13739535057760905.34778648-088c-45a3-9d45-1117ca041901.c4d90513-3be4-4a22-9cd6-85a7ffa8df7f",
-            "https://m.media-amazon.com/images/M/MV5BNzczN2VmMzEtNTk4NS00OTk0LTg4MWYtZWVkYzQ0MzE2NmQ4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-            "https://cdn.loaded.com/496x700/media/catalog/product/c/a/call-of-duty-vanguard-xbox-one-xbox-one-game-microsoft-store-cover_1__3.jpg",
-            "https://cdn1.epicgames.com/offer/7713e3fa4b234e0d8f553044205d53b6/EGS_TheLastofUsPartIIRemastered_NaughtyDogLLCNixxesSoftwareIronGalaxy_S2_1200x1600-2e13755a6b3fec2ee9dbcc231a1cf39c",
-            "https://tm.ibxk.com.br/2021/05/05/05040759331000.jpg",
-            "https://howlongtobeat.com/games/72822_Resident_Evil_3_(2020).jpg",
-            "https://static.wikia.nocookie.net/game-pedia/images/5/59/ResidentEvil7_Biohazard.jpeg/revision/latest?cb=20230110134349&path-prefix=de",
-            "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0cd47e73-13d0-4574-99e7-6989ec6ac3fc/dg675d8-f9cebeeb-76b9-4bf3-9ffc-5e05db5c9db6.png/v1/fill/w_1280,h_1815,q_80,strp/resident_evil_5__2009____poster_by_thepatchedvest_dg675d8-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTgxNSIsInBhdGgiOiIvZi8wY2Q0N2U3My0xM2QwLTQ1NzQtOTllNy02OTg5ZWM2YWMzZmMvZGc2NzVkOC1mOWNlYmVlYi03NmI5LTRiZjMtOWZmYy01ZTA1ZGI1YzlkYjYucG5nIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.b9g4fE6oFpxVsRwVFhJ66M3Oe5vQsVH78W2jzQjtqBU",
-            "https://store-images.s-microsoft.com/image/apps.23097.69886306496288395.9ec42146-6037-4440-b5c7-3a44e5213cc3.0e09163e-a6c4-40f6-9fe1-24a6b4685c64",
-            "https://cdn1.epicgames.com/offer/87b7846d2eba4bc49eead0854323aba8/EGS_DyingLight2StayHumanReloadedEdition_Techland_S2_1200x1600-76cef594ff94fbac64a8af1ebe4c7590",
-            "https://image.api.playstation.com/vulcan/ap/rnd/202109/1321/3mjMyRiJaq8lw1EFWiTCUJRV.png",
-            "https://azitech.com.br/wp-content/uploads/2024/08/Forza-Horizon-6-lancamento.jpg",
-            "https://upload.wikimedia.org/wikipedia/pt/d/dc/Capa_de_Forza_Horizon_5.jpg",
-            "https://m.media-amazon.com/images/M/MV5BNDk2NmRkOTQtYWM5Zi00MTBjLWEwZjktM2FmY2U5YWNkZGM0XkEyXkFqcGc@._V1_.jpg",
-            "https://cdnb.artstation.com/p/assets/images/images/019/956/143/large/mighoet-sundback-nfs-heat-cover.jpg?1565732891",
-            "https://images.steamusercontent.com/ugc/5109928331639408171/D260688DBD1EBFEF65BABF0D2E6956D8391E72B3/",
-            "https://media.vandal.net/m/16160/need-for-speed-most-wanted-20162383311_1.jpg",
-            "https://m.media-amazon.com/images/M/MV5BNmFkNzc3MDMtYzY4MC00NTI5LWI2M2QtYjZiM2M1MWE4NjJlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-            "https://cdn1.epicgames.com/offer/82aa77fde0b14916a86b66b1e6345c30/EGS_RIDE5_MilestoneSrl_S2_1200x1600-abc515266abe022f93ee7517ca8ec7fa",
-            "https://sm.ign.com/ign_br/cover/f/farming-si/farming-simulator-25_p1nu.jpg",
-            "https://assets.xboxservices.com/assets/7b/54/7b54f5e4-0857-4ce3-8a18-2b8c431e8a9e.jpg?n=Elden-Ring_GLP-Page-Hero-0_1083x1222_01.jpg",
-            "https://img.elo7.com.br/product/zoom/4C5B3FA/quadro-decorativo-game-lies-of-p-rpg-com-moldura-a3-lies-of-p.jpg",
-            "https://image.api.playstation.com/cdn/HP0700/CUSA03434_00/9Lvijwqww6gvFTsciIzMWqs61DlOg8xIAsomficGKF6g7z6bYgrYGAoG80gr87pw.png",
-            "https://m.media-amazon.com/images/M/MV5BMTM4N2JjZTEtNzE2YS00MTdmLTg1NTctZjVkNGFlOWU5OWFmXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-            "https://images3.alphacoders.com/117/thumb-1920-117095.jpg",
-            "https://cdn1.epicgames.com/offer/c8738a4d1ead40368eab9688b3c7d737/EGS_SkyrimSpecialEdition_BethesdaGameStudios_S2_1200x1600-ae5d13f6510e81460fe80aa1ca19cf4c",
-            "https://sm.ign.com/ign_pt/gallery/d/dark-souls/dark-souls-remastered-box-art_pr4m.jpg",
-            "https://meups.com.br/wp-content/uploads/2023/09/Israel-Mobolaji-Temitayo-Odunayo-Oluwafemi-Owolabi-Adesanya-UFC.jpeg",
-            "https://pixelstore.cl/cdn/shop/files/Disenosintitulo_25.png",
-            "https://static.wikia.nocookie.net/dublagempedia/images/8/85/Packshot-4f17aa8af0f3631bd8367b226c0fd263.jpg/revision/latest?cb=20191024001337&path-prefix=pt-br",
-            "https://images.gog.com/3272c0976e5651c0629daf5eab1ac4b2c49d7154b0a316886a1c7fa8b26af702_glx_vertical_cover.webp?namespace=gamesdb",
-            "https://cdn.europosters.eu/image/1300/230759.jpg",
-            "https://image.api.playstation.com/cdn/UP0700/CUSA05972_00/4yfeeKKfJdD5WzDQsoiM3xrcqPlpDLm7.png",
-            "http://cdn.awsli.com.br/2500x2500/22/22652/produto/295227042/dragon-ball-z-kakarot-legendary-edition-cover-vxuco0ery4.png",
-            "https://upload.wikimedia.org/wikipedia/pt/d/d0/Horizon_Zero_Dawn_capa.png",
-            "https://static.posters.cz/image/750/116582.jpg",
-            "https://www.europanet.com.br/upload/id_produto/60_____/6000201g.jpg",
-            "https://upload.wikimedia.org/wikipedia/pt/7/74/Spider-Man_Miles_Morales_capa.png",
-            "https://bdjogos.com.br/capas/5689-mad-max-capa-1.jpg",
-            "https://cdn1.epicgames.com/offer/angelonia/WDA_StorePortrait_1200x1600_1200x1600-75d21fb44d647ad69967ae1bb0ab0cbc",
-            "https://upload.wikimedia.org/wikipedia/pt/d/d3/Grand_Theft_Auto_San_Andreas_capa.png",
-            "https://image.api.playstation.com/vulcan/ap/rnd/202009/3021/BtsjAgHT9pqHRXtN9FCk7xc8.png",
-            "https://upload.wikimedia.org/wikipedia/pt/8/80/Grand_Theft_Auto_V_capa.png",
-            "https://upload.wikimedia.org/wikipedia/pt/5/59/Far_cry_3_box_art.jpg",
-            "https://cdn1.epicgames.com/offer/cf87285950ba492bbdc370b9d265ea36/FC4_StorePortrait_1200x1600_1200x1600-7f366d878f5553dae499860243c537ee",
-            "https://upload.wikimedia.org/wikipedia/pt/9/94/Far_cry_5_cover.jpg",
-            "https://upload.wikimedia.org/wikipedia/pt/d/df/Far_Cry_6_capa.jpg",
-            "https://res.cloudinary.com/dnponjtdn/image/upload/v1777349197/maxresdefault_2_hvz0mw.jpg",
-            "https://upload.wikimedia.org/wikipedia/pt/b/be/Farcry_primal_box.jpg",
-            "https://cdn1.epicgames.com/offer/camellia/ACOrigins_STD_Store_Portrait_1200x1600_1200x1600-4a79f9f393f7a3a9e5be3a0ae581f3d5",
-            "https://store-images.s-microsoft.com/image/apps.62015.13663198691635509.d632fab1-4bb2-4655-a619-75bb8f17a360.e00e5e77-8e14-490f-a51b-a024d0fe6e11",
-            "https://upload.wikimedia.org/wikipedia/pt/8/84/Assassins_Creed_Odyssey_capa.png",
-            "https://upload.wikimedia.org/wikipedia/pt/9/9a/Assassins_Creed_Unity_capa.png",
-            "https://upload.wikimedia.org/wikipedia/pt/c/ca/Assassins_Creed_4_Black_Flag_capa.png",
-            "https://upload.wikimedia.org/wikipedia/pt/a/ac/Assassins_Creed_2_capa.png"
-        ];
+    <div class="card-stage">
+      <div>
+        <div class="black-card" id="blackCard">
+          <div class="card-top">
+            <div class="card-chip"></div>
+            <div class="card-logo">GAMEFLIX<span class="b">B L A C K</span></div>
+          </div>
+          <div>
+            <div class="card-number">•••• •••• •••• BLCK</div>
+            <div class="card-bottom">
+              <div class="card-holder">TITULAR<b>ACESSO VITALÍCIO</b></div>
+              <div class="card-tier">ALL ACCESS</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-caption">este cartão não vence — sua assinatura também não</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        function buildCarousel() {
-            const track = document.getElementById('carouselTrack');
-            const allImgs = [...images, ...images];
-            allImgs.forEach(src => {
-                const card = document.createElement('div');
-                card.className = 'carousel-card';
-                const img = document.createElement('img');
-                img.src = src;
-                img.alt = 'Game cover';
-                img.loading = 'lazy';
-                img.onerror = function() { this.parentElement.style.display = 'none'; };
-                card.appendChild(img);
-                track.appendChild(card);
-            });
-        }
-        buildCarousel();
+<!-- BENEFITS -->
+<section id="beneficios">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">O QUE VOCÊ DESTRAVA</div>
+      <h2>Tudo isso, uma vez só</h2>
+      <p>Sem letras miúdas: você paga R$299 e a plataforma inteira abre para você.</p>
+    </div>
 
-        // ===== FAQ =====
-        function toggleFaq(btn) {
-            const item = btn.closest('.faq-item');
-            const isOpen = item.classList.contains('open');
-            document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-            if (!isOpen) item.classList.add('open');
-        }
+    <div class="benefits-grid">
+      <div class="benefit-card highlight reveal">
+        <div class="benefit-icon">🎮</div>
+        <h3>Catálogo 100% liberado</h3>
+        <p>Todos os jogos da Gameflix, de todas as categorias, sem exceção. Nada fica de fora do plano Black.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">🔓</div>
+        <h3>Pagamento único</h3>
+        <p>R$299 uma vez, ponto final. Nada de mensalidade rodando na sua fatura todo mês.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">🏆</div>
+        <h3>Jogo original, seu para sempre</h3>
+        <p>Você não aluga acesso. Cada jogo instalado é original e continua seu mesmo se a Gameflix mudar de plano no futuro.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">🔄</div>
+        <h3>2 anos de atualizações</h3>
+        <p>Todo update, DLC de correção e novo título adicionado ao catálogo chega para você sem custo extra por 2 anos.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">💬</div>
+        <h3>Suporte direto no WhatsApp</h3>
+        <p>Ficou com dúvida na instalação? Fala com a gente e resolve na hora, sem ticket, sem espera.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <div class="benefit-icon">🛡️</div>
+        <h3>Garantia de 7 dias</h3>
+        <p>Não gostou por qualquer motivo dentro da primeira semana? Devolvemos seu dinheiro sem burocracia.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // ===== STICKY CTA =====
-        const stickyCta = document.getElementById('sticky-cta');
-        const hero = document.getElementById('cta-hero');
-        const observer = new IntersectionObserver(entries => {
-            stickyCta.classList.toggle('visible', !entries[0].isIntersecting);
-        }, { threshold: 0 });
-        observer.observe(hero);
+<!-- COMPARISON -->
+<section id="comparativo">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">ANTES E DEPOIS</div>
+      <h2>Gameflix Free vs. Gameflix Black</h2>
+      <p>A diferença entre visitar a plataforma e ser dono dela.</p>
+    </div>
 
-        // ===== VAGAS: diminui lentamente para criar urgência real =====
-        let vagas = 47;
-        function decrementVagas() {
-            const delay = 45000 + Math.random() * 90000; // 45s–2min aleatório
-            setTimeout(() => {
-                if (vagas > 11) {
-                    vagas--;
-                    document.querySelectorAll('#vagas-num, #vagas-num-2').forEach(el => el.textContent = vagas);
-                    const pct = Math.round((1 - vagas / 380) * 100);
-                    document.querySelectorAll('.vagas-bar-fill').forEach(el => el.style.width = pct + '%');
-                    decrementVagas();
-                }
-            }, delay);
-        }
-        decrementVagas();
-    </script>
+    <div class="compare-wrap reveal">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th>Recurso</th>
+            <th>Free</th>
+            <th class="black-col">Black</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Acesso ao catálogo completo</td>
+            <td class="icon-no">Parcial</td>
+            <td class="black-col icon-yes">Total</td>
+          </tr>
+          <tr>
+            <td>Jogos originais para sempre</td>
+            <td class="icon-no">—</td>
+            <td class="black-col icon-yes">Sim</td>
+          </tr>
+          <tr>
+            <td>Cobrança</td>
+            <td>Por título / mensal</td>
+            <td class="black-col">Pagamento único</td>
+          </tr>
+          <tr>
+            <td>Atualizações inclusas</td>
+            <td class="icon-no">Não</td>
+            <td class="black-col icon-yes">2 anos</td>
+          </tr>
+          <tr>
+            <td>Suporte prioritário</td>
+            <td class="icon-no">Padrão</td>
+            <td class="black-col icon-yes">WhatsApp direto</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">OFERTA POR TEMPO LIMITADO</div>
+      <h2>Sua entrada no Black</h2>
+    </div>
+
+    <div class="pricing-box reveal">
+      <div class="badge">Pagamento único</div>
+      <div class="price-old mono">de R$799</div>
+      <div class="price-new"><small>R$</small>299</div>
+      <div class="price-sub">Sem mensalidade. Sem renovação. Acesso liberado na hora.</div>
+
+      <div class="countdown" id="countdown">
+        <div><div class="num" id="cd-h">00</div><div class="lbl">Horas</div></div>
+        <div><div class="num" id="cd-m">00</div><div class="lbl">Min</div></div>
+        <div><div class="num" id="cd-s">00</div><div class="lbl">Seg</div></div>
+      </div>
+
+      <ul class="price-list">
+        <li>Acesso imediato a todo o catálogo Gameflix</li>
+        <li>Jogos originais, seus para sempre</li>
+        <li>2 anos de atualizações e novos lançamentos</li>
+        <li>Suporte direto via WhatsApp</li>
+        <li>Garantia de 7 dias ou seu dinheiro de volta</li>
+      </ul>
+
+      <a href="https://wa.me/55981021909?text=Ol%C3%A1!%20Quero%20assinar%20o%20Gameflix%20Black!" class="btn-primary big">⚡ Virar Black agora</a>
+      <div class="guarantee-line">🔒 Ambiente seguro · resposta em até 5 minutos no WhatsApp</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="depoimentos">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">QUEM JÁ É BLACK</div>
+      <h2>O que os membros dizem</h2>
+    </div>
+  </div>
+  <div class="testi-track-wrap reveal">
+    <div class="testi-track" id="testiTrack">
+      <!-- duplicated via JS for infinite scroll -->
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Paguei uma vez e já baixei mais de 10 jogos diferentes. Achei que ia ter pegadinha, não teve."</p>
+        <div class="testi-who"><div class="testi-avatar">R</div><div><strong>Rafael M.</strong><span>São Paulo, SP</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Cansei de pagar assinatura de plataforma que trava o jogo se eu atraso. Aqui é meu, ponto final."</p>
+        <div class="testi-who"><div class="testi-avatar">F</div><div><strong>Fernanda L.</strong><span>Belo Horizonte, MG</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"O suporte no WhatsApp respondeu rápido e me ajudou a instalar. Virei Black e não me arrependi."</p>
+        <div class="testi-who"><div class="testi-avatar">G</div><div><strong>Gabriel S.</strong><span>Porto Alegre, RS</span></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Comparei o preço do combo com comprar os jogos separado. Não tem comparação, valeu muito a pena."</p>
+        <div class="testi-who"><div class="testi-avatar">M</div><div><strong>Marcos A.</strong><span>Fortaleza, CE</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container" style="max-width:760px;">
+    <div class="section-head reveal">
+      <div class="eyebrow">DÚVIDAS FREQUENTES</div>
+      <h2>Antes de você virar Black</h2>
+    </div>
+
+    <div class="reveal">
+      <div class="faq-item">
+        <button class="faq-q">Como recebo acesso depois de pagar?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Assim que o pagamento é confirmado, você recebe o acesso liberado por WhatsApp com as instruções de instalação — geralmente em poucos minutos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">O que significa "2 anos de atualizações"?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Durante 2 anos após a compra, qualquer atualização de jogo já instalado e qualquer título novo adicionado ao catálogo Black entra automaticamente no seu acesso, sem cobrança adicional.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Depois dos 2 anos eu perco os jogos?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Não. Os jogos que você já instalou continuam seus para sempre. O período de 2 anos se refere apenas ao recebimento de novas atualizações e lançamentos futuros.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">É pagamento único mesmo, sem mensalidade?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Sim. Você paga R$299 uma única vez para destravar o acesso Black. Não existe cobrança recorrente nesse plano.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">E se eu tiver algum problema depois da compra?<span class="plus">+</span></button>
+        <div class="faq-a"><p>Nosso suporte responde direto pelo WhatsApp. Além disso, você tem 7 dias de garantia: se não gostar por qualquer motivo, devolvemos seu dinheiro.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container reveal">
+    <h2>A plataforma inteira.<br>Uma vez só. Para sempre.</h2>
+    <p>Vagas limitadas para o preço de lançamento — depois disso, o valor sobe.</p>
+    <a href="https://wa.me/55981021909?text=Ol%C3%A1!%20Quero%20assinar%20o%20Gameflix%20Black!" class="btn-primary">⚡ Quero meu acesso Black agora</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Gameflix. Todos os direitos reservados. · Gameflix Black — acesso vitalício ao catálogo, pagamento único.
+</footer>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="info">Gameflix <strong>Black</strong> — pagamento único de R$299</div>
+  <a href="https://wa.me/55981021909?text=Ol%C3%A1!%20Quero%20assinar%20o%20Gameflix%20Black!" class="btn-primary">⚡ Virar Black</a>
+</div>
+
+<script>
+  // ---------- Background particle canvas ----------
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles;
+
+  function resize(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function initParticles(){
+    particles = Array.from({length: 55}, () => ({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      r: Math.random()*1.6 + .4,
+      vy: Math.random()*.25 + .05,
+      vx: (Math.random()-.5)*.15,
+      hue: Math.random() > .5 ? 'gold' : 'red',
+      alpha: Math.random()*.5 + .15
+    }));
+  }
+  initParticles();
+
+  function drawParticles(){
+    ctx.clearRect(0,0,w,h);
+    particles.forEach(p => {
+      p.y -= p.vy; p.x += p.vx;
+      if (p.y < -10) { p.y = h+10; p.x = Math.random()*w; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = p.hue === 'gold'
+        ? `rgba(201,164,76,${p.alpha})`
+        : `rgba(224,16,42,${p.alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    drawParticles();
+  }
+
+  // ---------- Topbar on scroll ----------
+  const topbar = document.getElementById('topbar');
+  const stickyBar = document.getElementById('stickyBar');
+  const hero = document.querySelector('.hero');
+
+  window.addEventListener('scroll', () => {
+    topbar.classList.toggle('scrolled', window.scrollY > 40);
+    stickyBar.classList.toggle('show', window.scrollY > hero.offsetHeight);
+  });
+
+  // ---------- Reveal on scroll ----------
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---------- Black Card tilt ----------
+  const card = document.getElementById('blackCard');
+  const stage = document.querySelector('.card-stage');
+  stage.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `rotateY(${x*18}deg) rotateX(${-y*18}deg) scale(1.02)`;
+  });
+  stage.addEventListener('mouseleave', () => {
+    card.style.transform = 'rotateY(0) rotateX(0) scale(1)';
+  });
+
+  // ---------- Testimonial infinite scroll ----------
+  const track = document.getElementById('testiTrack');
+  track.innerHTML += track.innerHTML; // duplicate for seamless loop
+
+  // ---------- FAQ accordion ----------
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ---------- Countdown timer ----------
+  // Configurable: resets to 6h from first page load, stored in-memory only.
+  const COUNTDOWN_HOURS = 6;
+  const deadline = new Date().getTime() + COUNTDOWN_HOURS * 60 * 60 * 1000;
+
+  function updateCountdown(){
+    const now = new Date().getTime();
+    let diff = deadline - now;
+    if (diff < 0) diff = 0;
+    const hours = Math.floor(diff / (1000*60*60));
+    const mins = Math.floor((diff % (1000*60*60)) / (1000*60));
+    const secs = Math.floor((diff % (1000*60)) / 1000);
+    document.getElementById('cd-h').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(mins).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(secs).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
 
 </body>
 </html>
